@@ -133,7 +133,7 @@
 \newcommand{\orcidsymbol}{\aiOrcid}
 \newcommand{\mailsymbol}{\faEnvelope}
 
-\newcommand{\printinfo}[2]{\mbox{\textcolor{accent}{\normalfont #1}\hspace{0.5em}#2\hspace{2em}}}
+\newcommand{\printinfo}[2]{\mbox{\textcolor{accent}{\normalfont #1}\hspace{0.2em}#2\hspace{0.5em}}}
 
 \newcommand{\name}[1]{\def\@name{#1}}
 \newcommand{\tagline}[1]{\def\@tagline{#1}}
@@ -154,9 +154,8 @@
   \begingroup
     \ifdef{\@photodiameter}{\begin{minipage}{\dimexpr\linewidth-\@photodiameter-2em}}{}%
     \raggedright\color{emphasis}%
-    {\Huge\bfseries\MakeUppercase{\@name}\par}
-    \medskip
-    {\large\bfseries\color{accent}\@tagline\par}
+    {\LARGE\bfseries\MakeUppercase{\@name}}
+    {\LARGE\bfseries\color{accent}~~~\@tagline\par}
     \medskip
     {\footnotesize\bfseries\@personalinfo\par}
     \ifdef{\@photodiameter}{%
@@ -168,7 +167,7 @@
       \tikz\path[fill overzoom image={\@photo}]circle[radius=0.5\linewidth];
     \fi%
     \end{minipage}\par}{}%
-  \endgroup\medskip
+  \endgroup
 }
 
 \renewenvironment{quote}{\color{accent}\itshape\large}{\par}
@@ -176,7 +175,7 @@
 \newcommand{\cvsection}[2][]{%
   \bigskip%
   \ifstrequal{#1}{}{}{\marginpar{\vspace*{\dimexpr1pt-\baselineskip}\raggedright\input{#1}}}%
-  {\color{heading}\LARGE\bfseries\MakeUppercase{#2}}\\[-1ex]%
+  {\color{heading}\large\bfseries\MakeUppercase{#2}}\\[-1ex]%
   {\color{heading}\rule{\linewidth}{2pt}\par}\medskip
 }
 
@@ -189,6 +188,18 @@
 \newcommand{\cvevent}[4]{%
   {\large\color{emphasis}#1\par}
   \smallskip\normalsize
+  \ifstrequal{#2}{}{}{
+  \textbf{\color{accent}#2}\par
+  \smallskip}
+  \ifstrequal{#3}{}{}{{\small\makebox[0.5\linewidth][l]{\faCalendar\hspace{0.5em}#3}}}%
+  \ifstrequal{#4}{}{}{{\small\makebox[0.5\linewidth][l]{\faMapMarker\hspace{0.5em}#4}}}\par
+  \medskip\normalsize
+}
+
+% v1.1.4: fixes inconsistent font size
+\newcommand{\cveventcompact}[4]{%
+  {\large\color{emphasis}#1}
+  \hfill\normalsize
   \ifstrequal{#2}{}{}{
   \textbf{\color{accent}#2}\par
   \smallskip}
